@@ -3,7 +3,19 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Keyboard } from 'react-native';
 
 import api from '../../services/api';
-import { Container, Input, Form, SubmitButton } from './styles';
+import {
+  Container,
+  Input,
+  Form,
+  SubmitButton,
+  List,
+  User,
+  Avatar,
+  Name,
+  Bio,
+  ProfileButton,
+  ProfileButtonText,
+} from './styles';
 
 export default class Main extends Component {
   // eslint-disable-next-line react/state-in-constructor
@@ -33,7 +45,7 @@ export default class Main extends Component {
   };
 
   render() {
-    const { newUser } = this.state;
+    const { newUser, users } = this.state;
 
     return (
       <Container>
@@ -51,6 +63,21 @@ export default class Main extends Component {
             <Icon name="md-add" size={20} color="#fff" />
           </SubmitButton>
         </Form>
+        <List
+          data={users}
+          keyExtractor={user => user.login}
+          renderItem={({ item }) => (
+            <User>
+              <Avatar source={{ uri: item.avatar }} />
+              <Name>{item.name}</Name>
+              <Bio>{item.bio}</Bio>
+
+              <ProfileButton>
+                <ProfileButtonText>Perfil</ProfileButtonText>
+              </ProfileButton>
+            </User>
+          )}
+        />
       </Container>
     );
   }
